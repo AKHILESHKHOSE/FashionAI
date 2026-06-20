@@ -76,6 +76,22 @@ python app.py
 # Runs on http://localhost:8000
 ```
 
+If you cannot or prefer not to use Docker, a helper PowerShell script is provided to download Python packages into a local cache (wheels) and clone any git-based dependencies. This lets you fetch required packages beforehand and then install them offline into the virtual environment.
+
+Run from repository root (PowerShell):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\dev\download_ai_requirements.ps1
+```
+
+Then inside project/ai_service activate the venv and install from the cached wheels:
+
+```powershell
+cd project/ai_service
+.\.venv\Scripts\activate
+pip install --no-index --find-links=./wheels -r requirements.txt
+```
+
 #### 2. Backend (Node.js/Express)
 ```bash
 cd project/backend
